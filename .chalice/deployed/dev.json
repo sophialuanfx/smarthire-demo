@@ -1,28 +1,5 @@
 {
-  "resources": [
-    {
-      "name": "managed-layer",
-      "resource_type": "lambda_layer",
-      "layer_version_arn": "arn:aws:lambda:us-west-2:590184104954:layer:smarthire-demo-dev-managed-layer:18"
-    },
-    {
-      "name": "default-role",
-      "resource_type": "iam_role",
-      "role_arn": "arn:aws:iam::590184104954:role/smarthire-demo-dev",
-      "role_name": "smarthire-demo-dev"
-    },
-    {
-      "name": "handle_object_update",
-      "resource_type": "lambda_function",
-      "lambda_arn": "arn:aws:lambda:us-west-2:590184104954:function:smarthire-demo-dev-handle_object_update"
-    },
-    {
-      "name": "handle_object_update-s3event",
-      "resource_type": "s3_event",
-      "bucket": "sopresumebucket",
-      "lambda_arn": "arn:aws:lambda:us-west-2:590184104954:function:smarthire-demo-dev-handle_object_update"
-    }
-  ],
+  "resources": [],
   "schema_version": "2.0",
   "backend": "api"
 }
