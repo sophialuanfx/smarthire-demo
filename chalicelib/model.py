@@ -13,9 +13,10 @@ apiKey="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"
 
 def resumeSum(userName, resumePath):
     
-    #loader =PyPDFLoader(f"../data/{resumePath}")
-    loader =PyPDFLoader(resumePath) #
+    #loader =PyPDFLoader(f"./data/{resumePath}")
+    loader =PyPDFLoader(resumePath)
     #loader =PyPDFLoader(f"./{resumePath}")
+
     
     pages = loader.load_and_split()
     
@@ -55,7 +56,7 @@ def resumeSum(userName, resumePath):
 
 def resuemJobMatch(resume_summary, job_path):
     #loader = CSVLoader(file_path=job_path)
-    loader = CSVLoader(file_path="./data/raw_google_1129.csv")
+    loader = CSVLoader(file_path="./data/raw_google_1129.csv", encoding = "utf-8")
 
     pages = loader.load_and_split()
     faiss_index = FAISS.from_documents(pages, OpenAIEmbeddings(openai_api_key=apiKey))
@@ -63,8 +64,6 @@ def resuemJobMatch(resume_summary, job_path):
 
     prompt = hub.pull("rlm/rag-prompt")
     model = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0, openai_api_key=apiKey)
-
-
 
     def format_docs(docs):
             return "\n\n".join([d.page_content for d in docs])
