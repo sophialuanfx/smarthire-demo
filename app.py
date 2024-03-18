@@ -26,6 +26,7 @@ def get_resume_sum(key, path):
     print(secondResult)
 
 #get_resume_sum('sopresumebukcet', 'Sophia_Resume.pdf')
+helper.getApiInfo()
 
 @app.lambda_function()
 def opeansearch_import():
