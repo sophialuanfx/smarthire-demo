@@ -48,11 +48,12 @@ def resumeSum(userName, resume):
     #print(f"This is resume and Match func: {solution}")
     return solution
 
+
 def resuemJobMatch(resume_summary, job_path):
     #loader = CSVLoader(file_path=job_path)
-    loader = CSVLoader(file_path="./raw_google_1129.csv")
+    loader = CSVLoader(file_path="./raw_google_1129.csv", encoding='unicode_escape')
+    pages = loader.load_and_split()
 
-    pages = loader.load_and_split().decode("utf-8")
     faiss_index = FAISS.from_documents(pages, OpenAIEmbeddings(openai_api_key=apiKey))
     jobs_retriever = faiss_index.as_retriever()
 

@@ -1,6 +1,5 @@
 
 import boto3
-
 from chalice import Chalice
 
 
@@ -38,7 +37,6 @@ def handle_object_update(event):
         get_resume_sum(key=event.key, content=filepath)
         os.remove(filepath)
 
-
 def get_resume_sum(key, content):
     from chalicelib import model
     print("Run resume Summary")
@@ -48,5 +46,5 @@ def get_resume_sum(key, content):
     print("Finished summary. And here is top 5 matched jobs: ")
     print(secondResult)
 
-get_resume_sum('sopresumebukcet', './data/Sophia_Resume.pdf')
+#get_resume_sum('sopresumebukcet', './data/Sophia_Resume.pdf')
 #helper.getApiInfo()
