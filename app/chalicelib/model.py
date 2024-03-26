@@ -1,23 +1,17 @@
-
-from langchain_community.vectorstores import FAISS
-from langchain_community.document_loaders import PyPDFLoader
-from langchain_community.document_loaders.csv_loader import CSVLoader
-from langchain_openai import ChatOpenAI
-from langchain_openai import OpenAIEmbeddings
-from langchain_core.runnables import RunnablePassthrough
-from langchain_core.output_parsers import StrOutputParser
 from langchain import hub
-
+from langchain.chat_models import ChatOpenAI 
+from langchain.embeddings import OpenAIEmbeddings
+from langchain.vectorstores import FAISS
+from langchain.document_loaders import PyPDFLoader
+from langchain.document_loaders.csv_loader import CSVLoader
+from langchain.schema.runnable import RunnablePassthrough
+from langchain.schema.output_parser import StrOutputParser
 
 apiKey="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"
 
-def resumeSum(userName, resumePath):
-    
-    #loader =PyPDFLoader(f"./data/{resumePath}")
-    loader =PyPDFLoader(resumePath)
-    #loader =PyPDFLoader(f"./{resumePath}")
-
-    
+def resumeSum(userName, resume):
+    print(type(resume))
+    loader = PyPDFLoader(resume)
     pages = loader.load_and_split()
     
     #os.environ['OPENAI_API_KEY'] = getpass.getpass('OpenAI API Key:')
@@ -56,9 +50,9 @@ def resumeSum(userName, resumePath):
 
 def resuemJobMatch(resume_summary, job_path):
     #loader = CSVLoader(file_path=job_path)
-    loader = CSVLoader(file_path="./data/raw_google_1129.csv", encoding = "utf-8")
+    loader = CSVLoader(file_path="./raw_google_1129.csv")
 
-    pages = loader.load_and_split()
+    pages = loader.load_and_split().decode("utf-8")
     faiss_index = FAISS.from_documents(pages, OpenAIEmbeddings(openai_api_key=apiKey))
     jobs_retriever = faiss_index.as_retriever()
 

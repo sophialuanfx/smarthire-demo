@@ -1,0 +1,22 @@
+{
+  "version": "2.0",
+  "app_name": "smarthire-demo",
+  "lambda_timeout": 600,
+  "lambda_functions": {
+    "opensearch_import": {
+      "layers": [
+        "arn:aws:lambda:us-west-2:590184104954:layer:pandas_layer-dev-managed-layer:6"
+      ]
+    },
+    "handle_object_update": {
+      "layers": [
+        "arn:aws:lambda:us-west-2:590184104954:layer:langchian_layer-dev-managed-layer:9"
+      ]
+    }
+  },
+  "stages": {
+    "dev": {
+      "api_gateway_stage": "api"
+    }
+  }
+}

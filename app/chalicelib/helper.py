@@ -48,7 +48,7 @@ def getApiInfo():
     _ = position_df.pop("thumbnail") # not useful, with na values
     #_ = position_df.insert(1,"publishDate", pd.Timestamp.now())
     #_ = position_df.pop("publishDate")
-    position_df.to_csv("./data/raw_google_1129.csv", index=False)
+    #position_df.to_csv("./data/raw_google_1129.csv", index=False)
 
     position_df.head()
     connectOpeanSearch(position_df=position_df)
@@ -56,21 +56,17 @@ def getApiInfo():
 
 ##change to aws opeansearch
 def connectOpeanSearch(position_df):
-    host = 'localhost'
-    port = 9200
-    auth = ('admin', 'admin') # For testing only. Don't store credentials in code.
-    ca_certs_path = '/full/path/to/root-ca.pem' # Provide a CA bundle if you use intermediate CAs with your root CA.
+    host = 'search-swift-hire-dev-jfmldmym4cfbiwdhwmtuqq6ihy.us-west-2.es.amazonaws.com'
+    port = 443
+    auth = ('swift', 'Hire123!') # For testing only. Don't store credentials in code.
 
-    # Create the client with SSL/TLS enabled, but hostname verification disabled.
     client = OpenSearch(
         hosts = [{'host': host, 'port': port}],
         http_compress = True, # enables gzip compression for request bodies
         http_auth = auth,
         use_ssl = True,
-        verify_certs = False,
         ssl_assert_hostname = False,
         ssl_show_warn = False,
-        ca_certs = ca_certs_path
     )
 
     print(client.info)
