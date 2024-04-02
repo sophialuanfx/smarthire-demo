@@ -5,11 +5,12 @@ from opensearchpy import OpenSearch, helpers
 
 apify_client = ApifyClient('apify_api_IY3hoxDRTo2d2iF7NoZXPIOtFlDb8J1cSkPQ')
 
-def getApiInfo():
+def getApiInfo(job_titles, locations):
     # Start an actor and wait for it to finish
     position_df = pd.DataFrame()
-    job_titles = ["Data Analyst", "Data Engineer"]#, "Data Scientist", "Software Developer", "Product Manager", "Digital Marketer"]
-    locations = {"w+CAIQICIHVG9yb250bw==": "Toronto", "w+CAIQICIJVmFuY291dmVy": "Vancourver"} 
+    job_titles = job_titles
+    #["Data Analyst", "Data Engineer", "Data Scientist", "Software Developer", "Product Manager", "Digital Marketer"]
+    locations = locations
     # locations = {"w+CAIQICIHVG9yb250bw==": "Toronto", "w+CAIQICIJVmFuY291dmVy": "Vancourver",
     #              "w+CAIQICIITW9udHJlYWw=": "Montreal", "w+CAIQICIHQ2FsZ2FyeQ==": "Calgary", "w+CAIQICIIRWRtb250b24=": "Edmonton"}  # UULE
 
@@ -47,11 +48,11 @@ def getApiInfo():
 
     _ = position_df.pop("thumbnail") # not useful, with na values
     #_ = position_df.insert(1,"publishDate", pd.Timestamp.now())
-    #_ = position_df.pop("publishDate")
-    #position_df.to_csv("./data/raw_google_1129.csv", index=False)
+    _ = position_df.pop("publishDate")
+    position_df.to_csv("./raw_google_1129.csv", index=False)
 
     position_df.head()
-    connectOpeanSearch(position_df=position_df)
+    return position_df
 
 
 ##change to aws opeansearch
@@ -74,7 +75,7 @@ def connectOpeanSearch(position_df):
     index_name = "swift_dev"
 
     if not client.indices.exists(index_name):
-        client.indices.create(index=index_name)
+        client.indices.create(index=index_name) 
 
     def doc_generator(df):
         for i, row in df.iterrows():

@@ -50,8 +50,9 @@ def resumeSum(userName, resume):
 
 
 def resuemJobMatch(resume_summary, job_path):
+    
     #loader = CSVLoader(file_path=job_path)
-    loader = CSVLoader(file_path="./raw_google_1129.csv", encoding='unicode_escape')
+    loader = CSVLoader(file_path=job_path, encoding= 'utf-8')
     pages = loader.load_and_split()
 
     faiss_index = FAISS.from_documents(pages, OpenAIEmbeddings(openai_api_key=apiKey))
