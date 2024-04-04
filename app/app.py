@@ -36,10 +36,10 @@ def handle_object_update(event):
         #download object from s3
         filepath = '/tmp/' + os.path.basename(event.key)  
         s3_client.download_file(event.bucket, event.key, filepath)  
-        
+
         result=get_resume_sum(key=event.key, content=filepath)
         os.remove(filepath)
-        return result
+        return Response(body=result, status_code=200)
 
 def get_resume_sum(key, content):
     from chalicelib import model

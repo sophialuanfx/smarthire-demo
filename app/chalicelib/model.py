@@ -10,7 +10,6 @@ from langchain.schema.output_parser import StrOutputParser
 apiKey="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"
 
 def resumeSum(userName, resume):
-    print(type(resume))
     loader = PyPDFLoader(resume)
     pages = loader.load_and_split()
     

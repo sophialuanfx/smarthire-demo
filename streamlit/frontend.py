@@ -6,6 +6,7 @@ import pandas as pd
 import altair as alt
 import base64
 import os
+import tempfile
 
 import sys
 sys.path.insert(0,'C:/Users/sophi/ChaliceProject/smarthire-demo/app/chalicelib')
@@ -46,12 +47,9 @@ def main():
     if uploaded_file is not None:
         if st.button("Upload"):
             try:
-                # Read file content
+                # Read pdf file content
                 file_content = uploaded_file.read()
                 filename = uploaded_file.name
-
-
-
                 encoded_content = base64.b64encode(file_content).decode('utf-8')
 
                 # Send filename and encoded content as JSON payload
@@ -63,13 +61,27 @@ def main():
                 # Handle response
                 if response.status_code == 200:
                     st.success("File uploaded and processed successfully!")
-                    result = resumeSum(filename, file_content)  # Pass file content as bytes
-                    st.write("Resume Processing Result: ", result)
+                    file_path = save_uploaded_file(uploaded_file)
+                    result=resumeSum(filename, file_path)
+                    st.text(result)
+                    second_result=resuemJobMatch(result, 'C:/Users/sophi/ChaliceProject/smarthire-demo/app/raw_google_1129.csv')
+                    st.write(second_result)
 
                 else:
                     st.error("Error uploading file. Please try again.")
             except Exception as e:
                 st.error(f"An error occurred: {e}")
+
+def save_uploaded_file(uploaded_file):
+    # Create a temporary directory to store the uploaded file
+    temp_dir = tempfile.mkdtemp()
+    file_path = os.path.join(temp_dir, uploaded_file.name)
+
+    # Save the file to the temporary location
+    with open(file_path, 'wb') as f:
+        f.write(uploaded_file.getbuffer())
+
+    return file_path
 
 if __name__ == "__main__":
     main()
