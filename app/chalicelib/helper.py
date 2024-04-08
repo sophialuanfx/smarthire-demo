@@ -48,8 +48,7 @@ def getApiInfo(job_titles, locations):
 
     _ = position_df.pop("thumbnail") # not useful, with na values
     #_ = position_df.insert(1,"publishDate", pd.Timestamp.now())
-    _ = position_df.pop("publishDate")
-    position_df.to_csv("./raw_google_1129.csv", index=False)
+    position_df.to_csv("./data/raw_google_1129.csv", index=False)
 
     position_df.head()
     return position_df

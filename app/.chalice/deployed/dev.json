@@ -7,9 +7,14 @@
       "role_name": "smarthire-demo-dev"
     },
     {
-      "name": "opensearch_import",
+      "name": "opensearch_handler",
       "resource_type": "lambda_function",
-      "lambda_arn": "arn:aws:lambda:us-west-2:590184104954:function:smarthire-demo-dev-opensearch_import"
+      "lambda_arn": "arn:aws:lambda:us-west-2:590184104954:function:smarthire-demo-dev-opensearch_handler"
+    },
+    {
+      "name": "opensearch_handler-event",
+      "resource_type": "cloudwatch_event",
+      "rule_name": "smarthire-demo-dev-opensearch_handler-event"
     },
     {
       "name": "handle_object_update",

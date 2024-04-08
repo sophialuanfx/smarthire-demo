@@ -7,7 +7,7 @@ from langchain.document_loaders.csv_loader import CSVLoader
 from langchain.schema.runnable import RunnablePassthrough
 from langchain.schema.output_parser import StrOutputParser
 
-apiKey="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"
+apiKey=""
 
 def resumeSum(userName, resume):
     loader = PyPDFLoader(resume)
@@ -48,7 +48,7 @@ def resumeSum(userName, resume):
     return solution
 
 
-def resuemJobMatch(resume_summary, job_path):
+def resuemJobMatch(resume_summary, job_path, locations):
     
     #loader = CSVLoader(file_path=job_path)
     loader = CSVLoader(file_path=job_path, encoding= 'utf-8')
@@ -70,10 +70,11 @@ def resuemJobMatch(resume_summary, job_path):
         | StrOutputParser()
     )
 
+    location_str = ", ".join(locations)
     solution=chain.invoke(
         f"""
-        Given the resume in {resume_summary}
-        Pick the recommend the top 5 matched jobs for the data with run time 2023-11-27, return applyLinks
+        Given the resume in {resume_summary} and pick job locations in {location_str}
+        Pick the recommend top 5 matched jobs, and return applyLinks
         """)
 
         
