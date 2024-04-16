@@ -7,6 +7,7 @@ from langchain.document_loaders.csv_loader import CSVLoader
 from langchain.schema.runnable import RunnablePassthrough
 from langchain.schema.output_parser import StrOutputParser
 
+#insert your own apikey
 apiKey=""
 
 def resumeSum(userName, resume):
@@ -51,8 +52,9 @@ def resumeSum(userName, resume):
 def resuemJobMatch(resume_summary, job_path, locations):
     
     #loader = CSVLoader(file_path=job_path)
-    loader = CSVLoader(file_path=job_path, encoding= 'utf-8')
+    loader = CSVLoader(file_path=job_path, encoding='latin-1')
     pages = loader.load_and_split()
+    #pages = loader.load()
 
     faiss_index = FAISS.from_documents(pages, OpenAIEmbeddings(openai_api_key=apiKey))
     jobs_retriever = faiss_index.as_retriever()
@@ -74,7 +76,7 @@ def resuemJobMatch(resume_summary, job_path, locations):
     solution=chain.invoke(
         f"""
         Given the resume in {resume_summary} and pick job locations in {location_str}
-        Pick the recommend top 5 matched jobs, and return applyLinks
+        Pick the recommend top 5 matched jobs, and return links with url
         """)
 
         

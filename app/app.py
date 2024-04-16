@@ -1,16 +1,21 @@
 
+import os
 import boto3
 from chalice import Chalice, Response
 
 app = Chalice(app_name='smarthire-demo')
+s3_client = boto3.client('s3')
+
+#replace with your own information
+bucket_name = ''
+jobinfo_bucket=''
+region=''
+sender=''
+
 
 _SUPPORTED_DOC_EXTENSIONS = (
     '.pdf'
 )
-
-s3_client = boto3.client('s3')
-bucket_name = 'sopresumebucket'
-
 def _is_pdf(key):
     return key.endswith(_SUPPORTED_DOC_EXTENSIONS)
 
@@ -22,32 +27,30 @@ def run_opensearch_import():
     locations = {"w+CAIQICIHVG9yb250bw==": "Toronto", "w+CAIQICIJVmFuY291dmVy": "Vancourver",
                   "w+CAIQICIITW9udHJlYWw=": "Montreal", "w+CAIQICIHQ2FsZ2FyeQ==": "Calgary", "w+CAIQICIIRWRtb250b24=": "Edmonton"}
     positions = helper.getApiInfo(job_titles=titles,locations=locations)
+    s3_client.put_object(Bucket=jobinfo_bucket, Key='raw_google_1129.csv', Body=positions.to_csv(index=False))
     _ = helper.connectOpeanSearch(position_df=positions)
     return {"status":"success"}
 
-'''
-#send result to email
-def send_email(result):
-    # Initialize SES client
-    ses_client = boto3.client('ses', region_name='us-west-2')  # Change region if needed
+#send email each time second result printed
+def send_email(email, body):
+    ses_client = boto3.client('ses', region_name=region)
+    sender_email = sender
+    email_subject = "Weekly Job Matching Results"
+    bodys="Here are the top 5 matched jobs:\n" + body
 
-    # Email parameters
-    sender = 'sophialuanfx@gmail.com'
-    recipient = 'sophialuanfx@gmail.com'
-    subject = 'Apify Job Result'
-    body = f'The Apify Job Result Update to OpeanSearch: {result}'
+    try:
+        response = ses_client.send_email(
+            Source=sender_email,
+            Destination={'ToAddresses': [email]},
+            Message={
+                'Subject': {'Data': email_subject},
+                'Body': {'Text': {'Data': bodys}}
+            }
+        )
+        print("Email sent successfully!")
+    except Exception as e:
+        print("Error sending email:", e)
 
-    # Send email
-    response = ses_client.send_email(
-        Source=sender,
-        Destination={'ToAddresses': [recipient]},
-        Message={
-            'Subject': {'Data': subject},
-            'Body': {'Text': {'Data': body}}
-        }
-    )
-    print("Email sent:", response)
-'''
 
 #run model.py
 def get_resume_sum(key, content):
@@ -55,36 +58,45 @@ def get_resume_sum(key, content):
     print("Run resume Summary")
     result=model.resumeSum( userName=key, resume= content)
     print(result)
-    """
-    secondResult=model.resuemJobMatch(resume_summary=result, job_path="./raw_google_1129.csv",)
+
+    #get new update job info
+    #filepath = '/tmp/' + os.path.basename('raw_google_1129.csv')  
+    #s3_client.download_file('sopapifydata', 'raw_google_1129.csv', filepath)  
+
+    #secondResult=model.resuemJobMatch(resume_summary=result, job_path=filepath, locations=[])
+    secondResult=model.resuemJobMatch(resume_summary=result, job_path='./data/raw_google_1129.csv', locations=[])
     print("Finished summary. And here is top 5 matched jobs: ")
     print(secondResult)
-    """
-    return {"result": result}
+    #os.remove(filepath)
+    print("Successful! Sending email..")
 
+    recipient_email = sender
+    email_body = str(secondResult)
+    send_email(recipient_email, email_body)
 
+#get_resume_sum('sophia',"./data/Sophia_resume.pdf")
+
+#3
 @app.schedule('cron(0 10 ? * SUN *)')  # Run each sunday at 10am
 def opensearch_handler(event):
     result = run_opensearch_import()
-    #send_email(result)
     return result
 
-
+#2
 @app.on_s3_event(bucket=bucket_name,
                  events=['s3:ObjectCreated:*'])
 def handle_object_update(event):
-    import os
     if _is_pdf(key=event.key):     
         #download object from s3
         filepath = '/tmp/' + os.path.basename(event.key)  
         s3_client.download_file(event.bucket, event.key, filepath)  
 
         #handel resume summary
-        result=get_resume_sum(key=event.key, content=filepath)
+        results=get_resume_sum(key=event.key, content=filepath)
         os.remove(filepath)
-        return Response(body=result, status_code=200)
+        return Response(body=results, status_code=200)
 
-    
+#1
 @app.route('/upload', methods=['POST'])
 def upload():
     import base64

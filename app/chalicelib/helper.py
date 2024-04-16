@@ -3,7 +3,9 @@ from apify_client import ApifyClient
 from datetime import datetime
 from opensearchpy import OpenSearch, helpers
 
-apify_client = ApifyClient('apify_api_IY3hoxDRTo2d2iF7NoZXPIOtFlDb8J1cSkPQ')
+#insert your info
+apify_client = ApifyClient('')
+opeansearch_aws=''
 
 def getApiInfo(job_titles, locations):
     # Start an actor and wait for it to finish
@@ -56,7 +58,7 @@ def getApiInfo(job_titles, locations):
 
 ##change to aws opeansearch
 def connectOpeanSearch(position_df):
-    host = 'search-swift-hire-dev-jfmldmym4cfbiwdhwmtuqq6ihy.us-west-2.es.amazonaws.com'
+    host = opeansearch_aws
     port = 443
     auth = ('swift', 'Hire123!') # For testing only. Don't store credentials in code.
 
