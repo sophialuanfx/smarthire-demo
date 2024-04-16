@@ -43,9 +43,10 @@ cd smarthire
 
 ## Deploy Lambda Layers
 Deploy the necessary Lambda layers to reduce the size of deployment packages:
-
+```python
 chalice deploy pandas_layer
 chalice deploy langchain_layer
+```
 
 ## Replace Your Info
 
