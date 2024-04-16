@@ -4,9 +4,6 @@
 
 Generate smart job information from resumes to simplify the job application process.
 
-## Introduction
-
-Briefly introduce your project here, highlighting its purpose and why it's useful. Mention that it utilizes resumes to generate job information.
 
 ## Features
 
