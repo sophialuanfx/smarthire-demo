@@ -33,6 +33,7 @@ pip install langchainhub
 pip install tiktoken
 pip install PyPDF2
 pip install faiss-cpu
+```
 
 ## Create a Chalice App
 Create a new Chalice project:
@@ -55,15 +56,18 @@ bucket_name = "your_bucket_name"
 jobinfo_bucket = "your_jobinfo_bucket"
 region = "your_aws_region"
 sender = "your_sender_email"
+```
 
 `./app/chalicelib/model.py` file:
 ```python
 apiKey="your_apify_key"
+```
 
 `./app/chalicelib/helper.py` file:
 ```python
 apify_client="your_apify_client_key"
 opeansearch_aws="your_opeansearch_key"
+```
 
 ## Team
 
