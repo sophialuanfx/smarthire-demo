@@ -6,11 +6,10 @@ Generate smart job information from resumes to simplify the job application proc
 
 ## Features
 
-- **Resume Parsing:** Extract relevant information from resumes.
-- **Smart Job Suggestions:** Generate tailored job suggestions based on resume content.
-- **Direct Application:** Allow users to apply directly to suggested jobs from within the application.
 - **Altair Chart:** Visualize job data from the last 7 days using Altair charts.
 - **Location Filtering:** Filter job postings based on location.
+- **Resume Parsing:** Extract relevant information from resumes.
+- **Smart Job Suggestions:** Generate tailored job suggestions based on resume content. Allow users to apply directly to suggested jobs from within the application.
 - **Job Subscription:** Subscribe to receive job postings directly to your email.
 
 
