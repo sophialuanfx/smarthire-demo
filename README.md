@@ -1,6 +1,5 @@
 # Smart Job Info Generator
 
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 Generate smart job information from resumes to simplify the job application process.
 
