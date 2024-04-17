@@ -41,9 +41,8 @@ chalice deploy
 ```
 
 ## Deploy Lambda Layers
-Deploy the necessary Lambda layers to reduce the size of deployment packages:
-chalice deploy pandas_layer
-chalice deploy langchain_layer
+Deploy the pandas_layer and langchain_layer folder as Lambda layers to reduce the size of deployment packages
+
 
 ## Replace Your Info
 
@@ -71,7 +70,7 @@ opeansearch_aws="your_opeansearch_key"
 
 - **Sophia Luan**
   - GitHub: [@sophialuan](https://github.com/sophialuan)
-  - LinkedIn: [Sophia Luan](https://www.linkedin.com/in/sophia-luan-256354208/)
+  - LinkedIn: (https://www.linkedin.com/in/sophia-luan-256354208/)
 
 - **Your Teammate**
   - GitHub: [@joycequ196](https://github.com/joycequ196))
