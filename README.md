@@ -16,8 +16,6 @@ Generate smart job information from resumes to simplify the job application proc
 
 ## Installation
 
-Provide instructions on how to install your project, including any dependencies that need to be installed.
-
 ```bash
 pip install chalice
 pip install pandas
@@ -46,7 +44,7 @@ Deploy the pandas_layer and langchain_layer folder as Lambda layers to reduce th
 
 ## Replace Your Info
 
-In your Chalice app, update the following placeholders in the `./app/app.py` file:
+Update the following placeholders in the `./app/app.py` file:
 
 ```python
 bucket_name = "your_bucket_name"
