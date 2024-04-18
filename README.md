@@ -63,6 +63,12 @@ apify_client="your_apify_client_key"
 opeansearch_aws="your_opeansearch_key"
 ```
 
+## Run Frontend
+```python
+cd stremlit
+streamlit run frontend.py
+```
+
 ## Team
 
 - **Sophia Luan**
