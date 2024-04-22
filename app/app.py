@@ -58,16 +58,9 @@ def get_resume_sum(key, content):
     print("Run resume Summary")
     result=model.resumeSum( userName=key, resume= content)
     print(result)
-
-    #get new update job info
-    #filepath = '/tmp/' + os.path.basename('raw_google_1129.csv')  
-    #s3_client.download_file('sopapifydata', 'raw_google_1129.csv', filepath)  
-
-    #secondResult=model.resuemJobMatch(resume_summary=result, job_path=filepath, locations=[])
     secondResult=model.resuemJobMatch(resume_summary=result, job_path='./data/raw_google_1129.csv', locations=[])
     print("Finished summary. And here is top 5 matched jobs: ")
     print(secondResult)
-    #os.remove(filepath)
     print("Successful! Sending email..")
 
     recipient_email = sender
