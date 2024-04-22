@@ -2,7 +2,6 @@
 
 
 Generate smart job information from resumes to simplify the job application process. 
-
 Demo Video:(https://drive.google.com/file/d/1mnn3Bqr74i82PNg0mrxYXKPHQp12QqZh/view?usp=sharing)
 
 
