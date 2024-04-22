@@ -75,6 +75,6 @@ streamlit run frontend.py
   - GitHub: [@sophialuan](https://github.com/sophialuan)
   - LinkedIn: (https://www.linkedin.com/in/sophia-luan-256354208/)
 
-- **Your Teammate**
+- **Joyce Qu**
   - GitHub: [@joycequ196](https://github.com/joycequ196))
-  - LinkedIn: [Teammate Name](https://www.linkedin.com/in/teammate_profile)
+  - LinkedIn: (https://www.linkedin.com/in/joyce-yuqing-qu-a37097100/)
