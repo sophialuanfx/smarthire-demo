@@ -11,10 +11,7 @@ def getApiInfo(job_titles, locations):
     # Start an actor and wait for it to finish
     position_df = pd.DataFrame()
     job_titles = job_titles
-    #["Data Analyst", "Data Engineer", "Data Scientist", "Software Developer", "Product Manager", "Digital Marketer"]
     locations = locations
-    # locations = {"w+CAIQICIHVG9yb250bw==": "Toronto", "w+CAIQICIJVmFuY291dmVy": "Vancourver",
-    #              "w+CAIQICIITW9udHJlYWw=": "Montreal", "w+CAIQICIHQ2FsZ2FyeQ==": "Calgary", "w+CAIQICIIRWRtb250b24=": "Edmonton"}  # UULE
 
     for uule in locations:
         print(locations[uule])
